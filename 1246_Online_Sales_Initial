@@ -1,0 +1,44 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+int main(void)
+{
+	int N, M; // N은 달걀의 갯수, M은 고객의 수. 
+	cin >> N >> M;
+	int i;
+	int price = 0;
+	int result = 0; // 영래가 판매하게 되는 계란의 가격. 
+	int max = 0; //max는 영래가 얻을 수 있는 최대 수익. 추후 피드백 구조를 위해서 선언. 
+
+	int p[1000] = { 0, }; //가격, M은 조건상 최대 1000명까지. 
+
+	for (i = 0; i < M; i++)
+	{
+		cin >> p[i];
+	}
+
+	sort(p, p+M);
+
+	//영래는 조건에 따라 달걀을 1개 또는 0개 밖에 팔지 못함. 
+	for (i = 0; i < M; i++)
+	{
+		if (M - i < N) // 사람보다 달걀이 더 많을 경우. 
+		{
+			result = p[i] * (M - i);
+		}
+		else // 달걀이 사람보다 적거나 같을 경우. 
+		{
+			result = p[i] * N;
+		}
+
+		if (max < result) // 피드백을 위한 max 구조 
+		{
+			price = p[i]; //달걀 가격
+			max = result; // 맥스에다가 결과값을 피드백 해줌. 
+		}
+	}
+	cout << price << " " << max << endl;  //달걀, 총수익 출력. 
+	return 0;
+}
