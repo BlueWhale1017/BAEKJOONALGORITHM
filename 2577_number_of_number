@@ -1,0 +1,28 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+int main(void)
+{
+	int a, b, c;
+	cin >> a >> b >> c;
+	int i = 0;
+
+	int arr[10] = { 0, }; // 각자 1000 미만이기에 그 곱도 10의 자리 수 이하. 
+	int result = a * b * c; 
+
+
+	while (result > 0)
+	{
+		arr[result % 10] += 1; //이걸 찾는게 가장 어려웠습니다. 이것만 찾으면 쉽네요. 
+		result = result / 10;
+	}
+
+	for (i = 0; i < 10; i++)
+	{
+		cout << arr[i] << endl;
+	}
+
+	return 0;
+}
