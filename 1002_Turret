@@ -1,0 +1,36 @@
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+using namespace std;
+
+int main(void)
+{
+	int x1[10000], y1[10000], r1[10000], x2[10000], y2[10000], r2[10000],i,cnt;
+	cin >> cnt;
+
+	for (i = 0; i < cnt; i++)
+	{
+		cin >> x1[i] >> y1[i] >> r1[i] >> x2[i] >> y2[i] >> r2[i];
+	}
+
+	for(i=0;i<cnt;i++)
+	{
+		double length[10000];
+		length[i] = sqrt(pow(x1[i] - x2[i], 2) + pow(y1[i] - y2[i], 2));
+
+		if (x1[i] == x2[i] && y1[i] == y2[i])
+		{
+			if (r1[i] == r2[i])
+				cout << "-1" << endl;
+			else
+				cout << "0" << endl;; //문제 상황상 측정 오차인 것으로 보여짐. 좌표가 같은데 타깃의 위치가 다르게 측정되니. 
+		}
+		else if (abs(r1[i] - r2[i]) < length[i] && (r1[i] + r2[i]) > length[i]) // 2점에서 교차
+			cout << "2" <<endl;
+		else if (abs(r1[i] - r2[i]) == length[i] || (r1[i] + r2[i]) == length[i]) //내적 또는 외적
+			cout << "1" <<endl;
+		else // 멀리 떨어짐.
+			cout << "0" <<endl;
+	}
+	return 0;
+}
