@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-long long fiboarr[50] = {0,1,}; //0과 1로 fiboarr을 전체 초기화. 
+long long fiboarr[50] = {0,1,}; //0,1,0,0,0,0,0.... : 50까지  
 
 int fibo(int n)
 {
