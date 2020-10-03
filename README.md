@@ -1,2 +1,8 @@
-# BAEKJOONALGORITHM
-알고리즘 스터디 문제 중 백준 알고리즘 만을 모아 정리해놓은 저장소. 
+## Baekjoon Algorithm
+
+[![Solved.ac
+BlueWhale1017](http://mazassumnida.wtf/api/v2/generate_badge?boj=BlueWhale1017)](https://solved.ac/BlueWhale1017)
+BlueWhale1017](http://mazassumnida.wtf/api/generate_badge?boj=BlueWhale1017)](https://solved.ac/BlueWhale1017)
+
+
+reference : https://github.com/mazassumnida/mazassumnida
