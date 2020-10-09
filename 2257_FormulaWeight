@@ -1,0 +1,124 @@
+/*문제의 전반적인 포인트는 스택과 스트링을 잘 구분하면서 코드를 짜야한다는 것. */
+
+#include<iostream>
+#include<stack>
+#include<string>
+using namespace std;
+
+int main(void)
+{
+	int i = 0;
+	string s; //시스템 선언
+	stack<string> st; //스택 선언
+
+	cin >> s; //시스템 입력
+
+	for (i = 0; i < s.length(); i++) //입력 된 string 문을 stack에 넣으면서 수정하는 단계. 스택을 만들기는 하지만 최종 값을 생산하지는 않음. 
+	{
+		if (s[i] == '(') // ( 발견시 스택에 그대로 푸쉬. 
+		{
+			st.push("(");
+		}
+		else if (s[i] == ')') // ) 발견시 스택에서 ( 가 나올 때까지 H 이면 1, C 이면 12, O 이면 16, 숫자면 int로 전환해서 total 에서 합산. 
+		{
+			int total = 0;
+			while (st.top() != "(")
+			{
+				if (st.top() == "H")
+				{
+					total += 1;
+					st.pop();
+				}
+				else if (st.top() == "C")
+				{
+					total += 12;
+					st.pop();
+				}
+				else if (st.top() == "O")
+				{
+					total += 16;
+					st.pop();
+				}
+				else
+				{
+					total += stoi(st.top());
+					st.pop();
+				}
+			}
+			st.push(to_string(total)); //보다시피 스택에 다시 값을 넣음. 
+		}
+		/* H C O 입력시 스택에 그대로 푸쉬. */
+		else if (s[i] == 'H')
+		{
+			st.push("H");
+			//st.top() = 'H'; ?? 
+		}
+		else if (s[i] == 'C')
+		{
+			st.push("C");
+		}
+		else if (s[i] == 'O')
+		{
+			st.push("O");
+		}
+		/*숫자가 입력될 시에는 앞에 H C O 가 있을 경우, 제거하면서 각자의 화학식량만큼을 더한 후 숫자와 곱함. ex. 16x7. 그 후에는 스택에 그 숫자를 string 값으로 변환해서 push */
+		else//숫자 else if(1<s[i] && s[i]<10)
+		{
+			int sum = 0;
+			if (st.top() == "H" || st.top() == "C" || st.top() == "O")
+			{
+				if (st.top() == "H")
+				{
+					st.pop();
+					sum += 1;
+				}
+				else if (st.top() == "C")
+				{
+					st.pop();
+					sum += 12;
+				}
+				else //else if (st.top() == "O")
+				{
+					st.pop();
+					sum += 16;
+				}
+				sum *= s[i] - '0'; //s[i]는 string 이므로 뒤에 0이 남아서 -'0'을 해줘야 하는 것으로 판단. 
+				st.push(to_string(sum)); //역시 스택에 다시 값을 넣음. 
+			}/* 앞에 문자가 오지 않고 숫자가 올 때에는 stack 에 그 숫자를 int 화 해서 넣은 후 곱함. 그 후에는 string 화 해서 stack 에 push */
+			else
+			{
+				sum += stoi(st.top());
+				st.pop();
+				sum *= s[i] - '0';
+				st.push(to_string(sum));
+			}
+		}
+	}
+	//이 위의 단계에서는 스택을 구축하면서 
+	//최종 단계. 만들어진 스택을 하나씩 꺼내가면서 최종화학식량을 구함. 
+	int ans = 0;
+
+	while (!st.empty())
+	{
+		if (st.top() == "H") // 
+		{
+			ans += 1;
+		}
+		else if (st.top() == "C")
+		{
+			ans += 12;
+		}
+		else if (st.top() == "O")
+		{
+			ans += 16;
+		}
+		else
+		{
+			ans += stoi(st.top());
+		}
+
+		st.pop();
+	}
+	cout << ans;
+	return 0;
+}
