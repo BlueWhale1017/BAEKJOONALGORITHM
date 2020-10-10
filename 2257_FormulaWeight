@@ -45,6 +45,7 @@ int main(void)
 					st.pop();
 				}
 			}
+			st.pop();
 			st.push(to_string(total)); //보다시피 스택에 다시 값을 넣음. 
 		}
 		/* H C O 입력시 스택에 그대로 푸쉬. */
