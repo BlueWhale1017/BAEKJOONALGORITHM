@@ -3,4 +3,83 @@
 #include<stack>
 using namespace std;
 
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+//st는 스트링, s는 char 로 인식하는 것 같음. 
+int main(void)
+{
+	string s;
+	stack<string> st;
+	int total = 0; //"." 갯수 
+
+	getline(cin, s);
+	bool flag = true;
+
+	for(int i=0;i<s.length();i++)
+	{
+		st.push(s);
+
+		if (st.top() == ".")
+		{
+			total += 1;
+			st.pop();
+		}
+		else
+		{
+			st.pop();
+		}
+	}// ". " 의 갯수 total 구하기 
+
+	for (int i = 0; i < total; i++)
+	{
+		for(i=0;i<s.length();i++)
+		{
+			if (s[i] == '(')
+			{
+				st.push("(");
+			}
+			else if (s[i] == '[')
+			{
+				st.push("[");
+			}
+			else if (s[i] == ')')
+			{
+				if (st.top() == "(")
+				{
+					st.pop();
+				}
+				else
+				{
+					flag = false;
+					break;
+				}
+			}
+			else if (s[i] == ']')
+			{
+				if (st.top() == "[")
+				{
+					st.pop();
+				}
+				else
+				{
+					flag = false;
+					break;
+				}
+			}
+			else if (s[i] == '.')
+			{
+				break;
+			}
+			else
+			{
+				continue;
+			}
+			cout << flag<<endl;
+		}
+	}
+	return 0;
+}
+
 
