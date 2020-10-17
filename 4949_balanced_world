@@ -8,7 +8,7 @@ int main(void)
 	while (1)
 	{
 		string s;
-		stack<char> st;
+		stack<string> st;
 
 		getline(cin, s);
 		bool flag = true;
@@ -22,15 +22,15 @@ int main(void)
 		{
 			if (s[i] == '(')
 			{
-				st.push('(');
+				st.push("(");
 			}
 			else if (s[i] == '[')
 			{
-				st.push('[');
+				st.push("[");
 			}
 			else if (s[i] == ')')
 			{
-				if (!st.empty() && st.top() == '(')
+				if (!st.empty() && st.top() == "(")
 				{
 					st.pop();
 				}
@@ -42,7 +42,7 @@ int main(void)
 			}
 			else if (s[i] == ']')
 			{
-				if (!st.empty() && st.top() == '[')
+				if (!st.empty() && st.top() == "[")
 				{
 					st.pop();
 				}
