@@ -1,0 +1,46 @@
+#include<iostream>
+#include<stack>
+#include<vector>
+#include<cstring>
+using namespace std;
+
+//재민-기장, 재현-총무
+stack<int> s; // 스택문제이기에 스택으로 해결함 
+
+int main(void)
+{
+	int i = 0; // 포문 제어용
+	int t = 0; // 스택에 현재 들어가 있는 숫자들의 갯수 측정용
+	int money = 0; //돈 
+	int sum = 0; // 돈들의 합. 
+
+	int k = 0; // 스택에 입력하는 숫자의 갯수
+	cin >> k;  
+
+	cout << "돈을 입력하세요: " << endl;
+	cout << "단, 취소를 원할 시 0을 누르세요<<endl";
+  //백준 입력시 위의 두 문장은 지우고 입력해야 정답으로 인정해 줍니다. 
+
+	for (i = 0; i < k; i++)
+	{
+		cin >> money;
+		if (money == 0)
+		{
+			s.pop();
+			t -= 1;
+		}
+		else
+		{
+			s.push(money);
+			t += 1;
+		}
+	}
+	while (t != 0)
+	{
+		sum += s.top();
+		s.pop();
+		t--;
+	}
+	cout << sum;
+	return 0;
+}
