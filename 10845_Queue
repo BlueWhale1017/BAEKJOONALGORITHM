@@ -1,0 +1,75 @@
+#include<iostream>
+#include<queue>
+#include<string>
+using namespace std;
+
+int main(void)
+{
+	queue<int> q;
+	string st;
+	int input = 0; // 큐에 들어가는 수. 
+
+	int N; // 입력할 명령어의 수. 
+	cin >> N;
+
+	for (int i = 0; i < N; i++)
+	{
+		cin >> st;
+
+		if (st == "push")
+		{
+			cin >> input;
+			q.push(input);
+		}
+		else if (st == "pop")
+		{
+			if (q.empty())
+			{
+				cout << -1 << endl;
+			}
+			else
+			{
+				cout <<q.front()<<endl;
+				q.pop();
+			}
+		}
+		else if (st == "size")
+		{
+			cout<<q.size()<<endl; 
+		}
+		else if (st == "empty")
+		{
+			if (q.empty())
+			{
+				cout << 1 <<endl;
+			}
+			else
+			{
+				cout << 0 <<endl;
+			}
+		}
+		else if (st == "front")
+		{
+			if (q.empty())
+			{
+				cout << -1 << endl;
+			}
+			else
+			{
+				cout << q.front() << endl;
+			}
+		}
+		else
+		{
+			if (q.empty())
+			{
+				cout << -1 << endl;
+			}
+			else
+			{
+				cout << q.back() << endl;
+			}
+		}
+	}
+	return 0;
+}
