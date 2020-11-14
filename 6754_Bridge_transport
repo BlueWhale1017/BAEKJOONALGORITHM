@@ -1,0 +1,79 @@
+#include<iostream>
+#include<queue>
+using namespace std;
+
+//차는 최대 4대 까지 올라갈 수 있다. 
+queue<int> q;
+
+int main(void)
+{
+	int MaxW = 0; // 다리가 견딜 수 있는 최대 하중. 
+	int N = 0; // 다리를 건너가고자 하는 차들의 수. 
+	int w[100000] = { 0, }; // 차들 각자의 무게. 
+
+	int sum = 0; // 차들 각자의 무게들의 합. 
+	int i = 0; // for문용 변수선언. 
+
+	cin >> MaxW;
+	cin >> N;
+
+	for (i = 1; i <= N; i++)
+	{
+		cin >> w[i];
+	}
+	//입력 종료
+	//계산 시작
+
+	for (int j = 1; j <= N; j++)
+	{
+		if (j <= 4)
+		{
+			q.push(w[j]);
+			sum += q.back();
+			if (sum > MaxW)
+			{
+				cout << j-1;
+				break;
+			}
+			else//sum<=MaxW
+			{
+				if (j == N)
+				{
+					cout << j;
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+		else if(j>4)
+		{
+			sum -= q.front();
+			q.pop();
+			q.push(w[j]);
+			sum += q.back();
+			if (sum > MaxW)
+			{
+				cout << j-1;
+				break;
+			}
+			else//sum<=MaxW
+			{
+				if (j == N)
+				{
+					cout << j;
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+		else
+		{
+			break;
+		}
+	}
+	return 0;
+}
