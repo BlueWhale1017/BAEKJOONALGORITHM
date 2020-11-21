@@ -1,0 +1,64 @@
+#include<iostream>
+#include<stack>
+#include<string>
+#include<cstring>
+using namespace std;
+
+stack<int> s;
+string order;
+
+int main(void)
+{
+	int num = 0;
+	int i = 0;
+	int N;
+	cin >> N; 
+
+	for (i = 0; i < N; i++)
+	{
+		cin >> order;
+
+		if (order == "push")
+		{
+			cin >> num;
+			s.push(num);
+		}
+		else if (order == "pop")
+		{
+			if (s.empty() == true)
+			{
+				cout << -1 << endl;
+			}
+			else
+			{
+				cout << s.top() << endl;
+				s.pop();
+			}
+		}
+		else if (order == "size")
+		{
+			cout << s.size() << endl;;
+		}
+		else if (order == "empty")
+		{
+			if (s.empty() == true)
+			{
+				cout << 1<<endl;
+			}
+			else
+			{
+				cout << 0<<endl;
+			}
+		}
+		else// if (order == "top")
+		{
+			if (!s.empty())
+				cout << s.top() << endl;
+			else
+			{
+				cout << -1 << endl;
+			}
+		}
+	}
+	return 0;
+}
