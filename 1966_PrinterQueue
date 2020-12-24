@@ -1,0 +1,57 @@
+#include<iostream>
+#include<cstdio>
+#include<queue>
+using namespace std;
+
+int main(void)
+{
+	int test_case = 0;
+	int N = 0, M = 0;
+	cin >> test_case; //0 번째 줄
+
+	for (int i = 0; i < test_case; i++)
+	{
+		queue<pair<int, int>> q;
+		priority_queue<int> pq;
+		int CNT = 0;//반복해야함 
+
+		//첫 번째 줄
+		cin >> N >> M; //앤은 문서의 개수, 엠은 몇 번째로 인쇄되었는지 궁금한 문서의 순번(왼쪽부터 0부터 시작)
+		//두 번째 줄
+		for (int j = 0; j < N; j++)
+		{
+			int importance = 0;
+			cin >> importance;
+			q.push({ j, importance }); // 
+			pq.push(importance); //importance 를 넣음 
+		} // 입력 완료. q에는 pair를 통해 위치별 중요도를 위치와 중요도를 동시에 입력. pq에는 중요도만 입력. 
+		/*
+		1
+		6 0
+		1 1 9 1 1 1
+		*/
+		while (!q.empty())
+		{
+			int nowindex = q.front().first; //위의 i 값. 즉 위치값.
+			int nowvalue = q.front().second; //importance 값. 즉 해당 위치의 중요도 값. 
+			// i번째 위치(인덱스)에 있는 중요도 importance를 위의 두 개의 라인 값들로 표시함. 
+			q.pop(); //입력이 끝났으면 빼줌. 
+
+			if (pq.top() == nowvalue) //pq는 중요도가 가장 높은 것이 가장 위에 위치한다. 즉, 우선순위가 가장 높은것과 i번째 위치에 있는 값의 중요도가 같을때 
+			{
+				pq.pop();
+				CNT++;
+				if (nowindex == M)
+				{
+					cout << CNT<<endl;
+					break;
+				}
+			}
+			else
+			{
+				q.push({ nowindex, nowvalue }); //다시 뒤로 넣어줌. 
+			}
+		}
+	}
+	return 0;
+}
