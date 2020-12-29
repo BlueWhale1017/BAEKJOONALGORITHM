@@ -1,0 +1,39 @@
+#include<iostream>
+#include<queue>
+#include<cstdio>
+#include<string>
+#include<functional>
+using namespace std;
+
+priority_queue<int, vector<int>, greater<int>> pq; //#include<functional>을 선언해주지 않을경우 greater를 사용하지 못함. 오름차수로 선언되게 함. 
+
+int main(void)
+{
+	int N=0;
+	scanf("%d", &N); //첫째 줄. 연산의 개수
+	
+
+	for (int i = 1; i <= N; i++)
+	{
+		int x = 0;
+		scanf("%d", &x); // N개의 줄
+
+		if (x > 0) //자연수일 경우 배열에 x 를 넣는다. 배열은 큐와 우선순위 큐(힙을 사용)으로 대체함
+		{
+			pq.push(x);
+		}
+		else // 0일 경우 배열에서 가장 작은 값을 출력하고 이후 제거한다. 또는 비어있을 경우 0을 출력한다.
+		{
+			if (!pq.empty()) // 배열이 비어있지 않을 경우. 
+			{
+				printf("%d \n", pq.top());
+				pq.pop();
+			}
+			else
+			{
+				printf("%d \n", 0);
+			}
+		}
+	}
+	return 0;
+}
