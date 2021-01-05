@@ -1,0 +1,57 @@
+#include<queue>
+#include<cstdio>
+#include<cmath>
+#include<cstdlib>
+#include<functional>
+using namespace std;
+
+priority_queue<int, vector<int>, greater<int>> pq1; //오름차순 정렬 1 2 8 99 879 6668
+priority_queue<int> pq2; //내림차순 정렬 -1 -5 -62 -2000
+
+int main(void){
+	int N = 0;
+	scanf("%d", &N); //첫째 줄. 연산의 개수
+
+	for (int i = 1; i <= N; i++)
+	{
+		int x = 0;
+		scanf("%d", &x); // N개의 줄
+		//0보다 크거나 작거나 0인 정수. 3가지 경우의 수 
+		if (x != 0) {//0이 아닐 때의 경우의 수 2가지 
+			if (x > 0) {
+				pq1.push(x);
+			}
+			else {
+				pq2.push(x);
+			}
+		}
+		else {//0일 때의 경우의 수
+			if (pq1.empty() && pq2.empty()) {//두개의 큐가 다 비어있을 때
+				printf("%d \n", 0);
+			}
+			else if (!pq1.empty() && pq2.empty()) {//pq1만 채워져 있을 때
+				printf("%d \n", pq1.top());
+				pq1.pop();
+			}
+			else if (pq1.empty() && !pq2.empty()) {//pq2만 채워져 있을 때
+				printf("%d \n", pq2.top());
+				pq2.pop();
+			}
+			else if (!pq1.empty() && !pq2.empty()) {//둘다 채워져 있을 때
+				if (pq1.top() > abs(pq2.top())) {//음의 절대값이 더 작을 때
+					printf("%d \n", pq2.top());
+					pq2.pop();
+				}
+				else if (pq1.top() < abs(pq2.top())) {//양의 절대값이 더 작을 때
+					printf("%d \n", pq1.top());
+					pq1.pop();
+				}
+				else {//절대값이 같을 때. 
+					printf("%d \n", pq2.top());
+					pq2.pop();
+				}
+			}
+		}
+	}
+	return 0;
+}
