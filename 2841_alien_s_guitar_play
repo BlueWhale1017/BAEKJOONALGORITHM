@@ -1,0 +1,30 @@
+#include<cstdio>
+#include<stack>
+using namespace std;
+stack<int> s[6]; //줄은 스택으로 처리. 총 6개의 줄.
+
+int main(void) {
+	int total = 0; //total은 손가락을 움직이는 최소한의 수 
+	int N = 0; int P = 0;
+	scanf("%d %d ", &N, &P); //음의 개수와 줄당 프렛의 수. N은 음의 개수임. 줄의 수로 착각하면 안됨. 
+	for (int i = 0; i < 6; i++) {//기타 줄이 6개 임으로 위에서 설명했듯 이런식으로 스택으로 처리함. 
+		s[i].push(0); //스택에는 프렛을 저장. 
+	}
+	int t1 = 0; int t2 = 0; //touch points. t1은 줄의 넘버, t2는 프렛의 넘버
+	while (N--) {
+		scanf("%d %d ", &t1, &t2); //음 입력
+		while(s[t1].top() > t2) {//손가락을 떼어야 할때
+			s[t1].pop();
+			total += 1;
+		}
+		if (s[t1].top() == t2) {//손가락을 튕기기만 해도 될때
+			total += 0;
+		}
+		else {//손가락을 더 누르면서 값을 갱신해야 할 때
+			s[t1].push(t2);
+			total += 1;
+		}
+	}
+	printf("%d ", total);
+	return 0;
+}
