@@ -1,0 +1,65 @@
+#include<vector>
+#include<queue>
+#include<iostream>
+#include<functional>
+#include<cstdio>
+#include<string.h>
+using namespace std;
+
+const int MAX = 100001;
+
+queue<int> q;
+priority_queue<int, vector<int>, greater<int>> pq;
+vector<int> v[MAX] = {  };
+bool check[MAX];
+int cnt[MAX] = { 0, };
+
+int BFS(int u) {
+	memset(check, false, sizeof(check));
+	queue<int> q;
+	int count = 0;
+	q.push(u);
+	check[u] = true;
+
+	while (!q.empty()) {
+		int cur = q.front();
+		q.pop();
+		int vsize = v[cur].size();
+		for (int i = 0; i < vsize; i++) {
+			int next = v[cur][i];
+
+			if (!check[next]) { // 몇 개가 한 컴퓨터에 연결되어 있나 확인. count를 올림. 
+				check[next] = true;
+				count++;
+				q.push(next);
+			}
+		}
+	}
+	return count;
+}
+
+int main(void) {
+	int N, M, a, b;
+	cin >> N >> M; //N은 컴퓨터의 개수, M은 신뢰관계의 개수 
+	while (M--) {//신뢰관계를 정리. 
+		cin >> a >> b;
+		v[b].push_back(a);
+	}
+	int max = 0;
+	for (int i = 1; i <= N; i++) {
+		cnt[i] = BFS(i); // cnt[i]에 연결되어 있는 컴퓨터의 수. 자연수이므로 1부터 시작한다.  
+		if (max < cnt[i]) {
+			max = cnt[i]; //어찌되었든 가장 큰 cnt[i]의 값이 max에 들어가게 된다. 즉, max 만큼의 연결된 컴퓨터를 가진 컴퓨터의 번호를 출력하면 된다. 
+		}
+	}
+	for (int i = 1; i <= N; i++) {//max와 같은 값을 같는 cnt[i]의 컴퓨터들을 우선순위 큐에 푸시해준다.  
+		if (max == cnt[i]) {
+			pq.push(i);
+		}
+	}
+	while (!pq.empty()) { // 우선순위 큐는 오름차순을 이용해서 배치하였다. 
+		cout << pq.top()<<" ";
+		pq.pop();
+	}
+	return 0;
+}
