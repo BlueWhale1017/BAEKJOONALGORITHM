@@ -4,8 +4,8 @@
 #include<vector>
 using namespace std;
 const int MAX = 10000; //#define MAX=10000
-vector<int> v[MAX]; // ë§í¬ë“œë¦¬ìŠ¤íŠ¸ë¡œ ë™ì í• ë‹¹ì„ í•˜ê¸° ìœ„í•´ ì„ ì–¸. 
-bool check[101] = { false, }; //dfs ìƒì—ì„œ ë°©ë¬¸í–ˆë‚˜ ì•ˆí–ˆë‚˜ë¥¼ ì²´í¬
+vector<int> v[MAX]; // ¸µÅ©µå¸®½ºÆ®·Î µ¿ÀûÇÒ´çÀ» ÇÏ±â À§ÇØ ¼±¾ğ. 
+bool check[101] = { false, }; //dfs »ó¿¡¼­ ¹æ¹®Çß³ª ¾ÈÇß³ª¸¦ Ã¼Å©
 
 int dfs(int u, int count) { 
 	check[u] = true;
@@ -23,11 +23,14 @@ int main(void) {
 	ios::sync_with_stdio(false);
 	cin.tie(0);
 
-	int N, M, a, b = 0; cin >> N; cin >> M; // a,b ëŠ” ì»´í“¨í„°, Nì€ ì»´í“¨í„°ì˜ ê°œìˆ˜, Mì€ ì»´í“¨í„°ë“¤ë¼ë¦¬ ì—°ê²°ë˜ì–´ ìˆëŠ” ê²½ìš°ì˜ ìˆ˜. 
+	int N, M, a, b = 0; cin >> N; cin >> M; // a,b ´Â ÄÄÇ»ÅÍ, NÀº ÄÄÇ»ÅÍÀÇ °³¼ö, MÀº ÄÄÇ»ÅÍµé³¢¸® ¿¬°áµÇ¾î ÀÖ´Â °æ¿ìÀÇ ¼ö. 
 	while (M--) {
-		cin >> a >> b; // ì—°ê²°ëœ ì»´í“¨í„°ë“¤. 
-		v[b].push_back(a); v[a].push_back(b); //ìŒë°©í–¥ì´ê¸°ì—. 
+		cin >> a >> b; // ¿¬°áµÈ ÄÄÇ»ÅÍµé. 
+		v[b].push_back(a); v[a].push_back(b); //½Ö¹æÇâÀÌ±â¿¡. 
 	}
 	cout<<dfs(1, 0);
 	return 0;
 }
+
+
+
