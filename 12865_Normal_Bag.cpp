@@ -4,40 +4,40 @@
 using namespace std;
 
 int N = 0, K = 0;
-int W[101] = { 0, }, V[101] = { 0, }; //NÀÇ ÇÑ°èÀÎ 100ÀÌ ÃÖ´ë. 0Àº ºñ¿ö³õÀ½. 
-int Bag[101][100001] = { 0, };// Bag[N¹øÂ° ¹°°Ç±îÁöÀÇ, N¹øÂ° ¹°°ÇÀÇ ¹«°Ô±îÁö °í·ÁÇÑ]== ~ÀÇ °¡Ä¡ ÃÑÇÕ. 
-//vector<pair<int, int>> weight_value; W, V¸¦ ÀÌ·±½ÄÀ¸·Îµµ Ç¥Çö °¡´É. 
+int W[101] = { 0, }, V[101] = { 0, }; //Nì˜ í•œê³„ì¸ 100ì´ ìµœëŒ€. 0ì€ ë¹„ì›Œë†“ìŒ. 
+int Bag[101][100001] = { 0, };// Bag[Në²ˆì§¸ ë¬¼ê±´ê¹Œì§€ì˜, Në²ˆì§¸ ë¬¼ê±´ì˜ ë¬´ê²Œê¹Œì§€ ê³ ë ¤í•œ]== ~ì˜ ê°€ì¹˜ ì´í•©. 
+//vector<pair<int, int>> weight_value; W, Vë¥¼ ì´ëŸ°ì‹ìœ¼ë¡œë„ í‘œí˜„ ê°€ëŠ¥. 
 
-void Input(void) {//NÀº ¹°Ç°ÀÇ ¼ö, K´Â µé ¼ö ÀÖ´Â ¹«°ÔÀÇ ÇÕ. W´Â °¢ ¹°°ÇÀÇ weight, V´Â °¢ ¹°°ÇÀÇ Value. 
+void Input(void) {//Nì€ ë¬¼í’ˆì˜ ìˆ˜, KëŠ” ë“¤ ìˆ˜ ìˆëŠ” ë¬´ê²Œì˜ í•©. WëŠ” ê° ë¬¼ê±´ì˜ weight, VëŠ” ê° ë¬¼ê±´ì˜ Value. 
 	cin >> N >> K;
 	for(int i=1;i <= N;i++) {
 		cin >> W[i] >> V[i];
-	}//ÀÔ·Â ³¡. 
+	}//ì…ë ¥ ë. 
 }
 void DP(void) {
-	for (int i = 1; i <= N; i++) {//¹°Ã¼ÀÇ ¼ö.
-		for (int j = 0; j <=K; j++) {//¹«°Ô. 
+	for (int i = 1; i <= N; i++) {//ë¬¼ì²´ì˜ ìˆ˜.
+		for (int j = 0; j <=K; j++) {//ë¬´ê²Œ. 
 			if (i == 1) {
 				if (W[i] <= j) {
 					Bag[i][j] = V[i];
 					continue;
 				}
 			}
-			if (W[i] <= j) Bag[i][j] = max(Bag[i - 1][j], V[i] + Bag[i - 1][j - W[i]]); //°¡Àå Áß¿äÇÑ Á¡È­½Ä. »ç½Ç»ó DPÀÇ ÇÙ½É. 
+			else if (W[i] <= j) Bag[i][j] = max(Bag[i - 1][j], V[i] + Bag[i - 1][j - W[i]]); //ê°€ì¥ ì¤‘ìš”í•œ ì í™”ì‹. ì‚¬ì‹¤ìƒ DPì˜ í•µì‹¬. 
 			else Bag[i][j] = Bag[i - 1][j];
 		}
 	}
-	cout<< Bag[N][K]<<"\n"; //Ãâ·Â ³¡. 
+	cout<< Bag[N][K]<<"\n"; //ì¶œë ¥ ë. 
 }
 int main(void) {
-	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); //½Ã°£ Àı¾à 
-	Input(); // ÀÔ
-	DP();// Ãâ
-	return 0; //³¡! 
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); //ì‹œê°„ ì ˆì•½ 
+	Input(); // ì…
+	DP();// ì¶œ
+	return 0; //ë! 
 }
-/*ºê·çÆ® Æ÷½º¸¦ »ç¿ëÇÏ·Á°í ½Ãµµ. (½ÇÆĞÇÔ) 
+/*ë¸Œë£¨íŠ¸ í¬ìŠ¤ë¥¼ ì‚¬ìš©í•˜ë ¤ê³  ì‹œë„. (ì‹¤íŒ¨í•¨) 
 int w_sum[1001] = { 0, }, v_sum[1001] = { 0, };
-int Product[101][2] = { 0, }; //¹°°Ç. ¹«°Ô¿Í °¡Ä¡. 
+int Product[101][2] = { 0, }; //ë¬¼ê±´. ë¬´ê²Œì™€ ê°€ì¹˜. 
 int Max = 0;
 void Calculate(int i) {
 	if (w_sum[i] <= K) {
@@ -46,8 +46,8 @@ void Calculate(int i) {
 		}
 	}
 }
-//Á¶ÇÕµéÀÇ ÇÕ. Input ¿¡¼­ 4°³ÀÇ ÀÎÀÚ°¡ µé¾î¿È. nCn+...+nC1(¹«°Ô·Î Á¶°Ç¸ÕÀú È®ÀÎ, ±×´ÙÀ½ °¡Ä¡Æò°¡)
-int combination(int n, int r) { //Àç±Í·Î Á¶ÇÕ ±¸Çö. 
+//ì¡°í•©ë“¤ì˜ í•©. Input ì—ì„œ 4ê°œì˜ ì¸ìê°€ ë“¤ì–´ì˜´. nCn+...+nC1(ë¬´ê²Œë¡œ ì¡°ê±´ë¨¼ì € í™•ì¸, ê·¸ë‹¤ìŒ ê°€ì¹˜í‰ê°€)
+int combination(int n, int r) { //ì¬ê·€ë¡œ ì¡°í•© êµ¬í˜„. 
 	if (n == r || r == 0) return 1;
 	else {
 		return combination(n - 1, r - 1) + combination(n - 1, r);
