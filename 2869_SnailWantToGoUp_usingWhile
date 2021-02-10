@@ -1,0 +1,29 @@
+#include<iostream>
+using namespace std;
+
+int a = 0, b = 0, v = 0;
+
+void Input(void) {//1<=b<a<v<1,000,000,000  +a -b 높이 v 
+	cin >> a >> b >> v;
+}
+void Days(void) {
+	int cnt = 1;
+	int current_height = 0;
+
+	while (current_height < v) {
+		current_height += a;
+		if (current_height >= v) {
+			cout << cnt << "\n";
+			break;
+		}
+		else {
+			cnt++;
+			current_height -= b;
+		}
+	}
+}
+int main(void) {
+	Input();
+	Days();
+	return 0;
+}
