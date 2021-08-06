@@ -12,9 +12,8 @@ int main() {
 	
 	for (int i = 0; i < T; i++) {
 		cin >> a; cin >> b;
-		cout << Solve(a, b) << endl;
+		Solve(a, b);
 	}
-	
 	return 0;
 }
 
@@ -38,48 +37,43 @@ int Solve(int a, int b) {//최대공통조상노드 구하기. 그 후 그 값에 10을 곱해서 반
 		//q의 형식으로 1 까지 다 들어간다. 
 	}
 	
-	while (1) {
-		if (k != 0) {
-			return 10 * k;
-			break;
-		}
-		if (a_ori <= b_ori) {
-			int candidate = qa.front();//vector를 안 쓰고 queue로 한 이유는 그래야 큰 것부터 들어가고 나올 수 있기 때문. 
-			while (1) {
-				if (candidate == qb.front()) {//맞을경우 해당 값을 k에 넣고 반복문을 종료함. 
-					k = candidate;
-					break;
-				}
-				else {
-					int cycle = qb.front();
-					qb.pop();
-					qb.push(cycle);//계속 순환함. 
-					if (cycle == 1) {
-						qa.pop();
-						break; //cycle이 1이 될때까지 다 돌았는데도 후보가 안 나오면 qa 쪽을 수정해야함. 
-					}	
-				}
+	if (a_ori <= b_ori) {
+		int candidate = qa.front();//vector를 안 쓰고 queue로 한 이유는 그래야 큰 것부터 들어가고 나올 수 있기 때문. 
+		while (1) {
+			if (candidate == qb.front()) {//맞을경우 해당 값을 k에 넣고 반복문을 종료함. 
+				k = candidate;
+				break;
 			}
-		}
-		else {//a>b
-			int candidate = qb.front();//vector를 안 쓰고 queue로 한 이유는 그래야 큰 것부터 들어가고 나올 수 있기 때문. 
-			while (1) {
-				if (candidate == qa.front()) {//맞을경우 해당 값을 k에 넣고 반복문을 종료함. 
-					k = candidate;
-					break;
-				}
-				else {
-					int cycle = qa.front();
+			else {
+				int cycle = qb.front();
+				qb.pop();
+				qb.push(cycle);//계속 순환함. 
+				if (cycle == 1) {
 					qa.pop();
-					qa.push(cycle);//계속 순환함. 
-					if (cycle == 1) {
-						qb.pop();
-						break; //cycle이 1이 될때까지 다 돌았는데도 후보가 안 나오면 qa 쪽을 수정해야함. 
-					}
+					candidate = qa.front();
 				}
 			}
 		}
 	}
+	else {//a>b-> 속도를 위해서 이렇게 함. 
+		int candidate = qb.front();//vector를 안 쓰고 queue로 한 이유는 그래야 큰 것부터 들어가고 나올 수 있기 때문. 
+		while (1) {
+			if (candidate == qa.front()) {//맞을경우 해당 값을 k에 넣고 반복문을 종료함. 
+				k = candidate;
+				break;
+			}
+			else {
+				int cycle = qa.front();
+				qa.pop();
+				qa.push(cycle);//계속 순환함. 
+				if (cycle == 1) {
+					qb.pop();
+					qb.front();
+				}
+			}
+		}
+	}
+	cout<< 10 * k<<endl;
 }
 
 
