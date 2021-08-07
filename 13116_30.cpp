@@ -2,7 +2,7 @@
 #include<queue>
 using namespace std;
 
-int Solve(int a, int b);
+void Solve(int a, int b);
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
@@ -17,7 +17,7 @@ int main() {
 	return 0;
 }
 
-int Solve(int a, int b) {//최대공통조상노드 구하기. 그 후 그 값에 10을 곱해서 반환. 
+void Solve(int a, int b) {//최대공통조상노드 구하기. 그 후 그 값에 10을 곱해서 반환. 
 	int k = 0;
 
 	int a_ori = a; int b_ori = b;//원본값. 
@@ -68,12 +68,12 @@ int Solve(int a, int b) {//최대공통조상노드 구하기. 그 후 그 값에 10을 곱해서 반
 				qa.push(cycle);//계속 순환함. 
 				if (cycle == 1) {
 					qb.pop();
-					qb.front();
+					candidate=qb.front();
 				}
 			}
 		}
 	}
-	cout<< 10 * k<<endl;
+	cout<< 10 * k<<'\n';
 }
 
 
